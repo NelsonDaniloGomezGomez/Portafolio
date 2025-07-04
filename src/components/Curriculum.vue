@@ -1,24 +1,27 @@
 <template>
-  <div v-if="show" class="modal-overlay" @click.self="close">
-    <div class="modal-content">
-      <button class="close-btn" @click="close">X</button>
-      <h3>Currículum Vitae</h3>
-      
-      <!-- Vista previa del PDF -->
-        <iframe :src="cvUrl" ...></iframe>
-        <a :href="cvUrl" download="CV-Nelson.pdf" ...>Descargar CV</a>
-      
-      <a :href="pdfUrl" download="CV-Nelson.pdf" class="btn download-btn">Descargar CV</a>
+  <Modal :show="show" @close="close">
+    <h3>Currículum Vitae</h3>
+    <iframe 
+      :src="cvUrl" 
+      width="100%" 
+      height="500px" 
+      style="border: none;"
+    ></iframe>
+    <div class="modal-btn" style="margin-top: 1rem; display: flex; gap: 1rem;">
+      <a :href="cvUrl" download="CurriculumNelsonGomez.pdf" class="btn download-btn">
+        <font-awesome-icon :icon="['fas', 'download']" /> Descargar CV
+      </a>
+      <button class="btn close-btn" @click="close">Cerrar</button>
     </div>
-  </div>
+  </Modal>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import Modal from './Modal.vue'
 
 const props = defineProps({
   show: Boolean,
-  cvUrl: String,
+  cvUrl: String
 })
 
 const emit = defineEmits(['close'])
@@ -29,40 +32,31 @@ const close = () => {
 </script>
 
 <style scoped>
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.modal-content {
-  background: white;
-  padding: 1rem;
-  width: 90%;
-  max-width: 700px;
-  border-radius: 8px;
-  position: relative;
-  box-sizing: border-box;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: transparent;
-  border: none;
-  font-size: 1.2rem;
+.btn {
   cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
 }
 
 .download-btn {
-  display: inline-block;
-  margin-top: 1rem;
+  background-color: var(--color-primary, #333);
+  color: white;
+  border: 1px solid var(--color-primary, #333);
+}
+
+.download-btn:hover {
+  background-color: var(--color-primary-hover, #555);
+}
+
+.close-btn {
+  background-color: transparent;
+  color: inherit;
+  border: 1px solid #999;
+}
+
+.close-btn:hover {
+  background-color: rgba(0,0,0,0.05);
 }
 </style>

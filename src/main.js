@@ -9,7 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Solid Icons (fas)
-import { faFileAlt, faAdjust, faServer, faDatabase, faCloud, faCode, faLayerGroup } from '@fortawesome/free-solid-svg-icons'
+import { faFileAlt, faAdjust, faServer, faDatabase, faCloud, faCode, faLayerGroup, faDownload } from '@fortawesome/free-solid-svg-icons'
 
 // Brand Icons (fab)
 import { faLinkedin, faGithub, faAngular, faJs, faPython, faHtml5 } from '@fortawesome/free-brands-svg-icons'
@@ -28,8 +28,10 @@ library.add(
   faAngular,
   faJs,
   faPython,
-  faHtml5
+  faHtml5,
+  faDownload
 )
+
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')

@@ -38,7 +38,7 @@ import Modal from './Modal.vue'
 import perfil from '../assets/foto-perfil.jpeg'
 
 const showCv = ref(false)
-const pdfUrl = '/CurriculumNelsonGomez.pdf'
+const pdfUrl = '/Portafolio/CurriculumNelsonGomez.pdf'
 
 const openModal = () => {
   showCv.value = true

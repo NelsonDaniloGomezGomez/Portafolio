@@ -1,36 +1,12 @@
 <template>
   <div>
     <h2>Proyectos</h2>
-    <ul>
-      <li v-for="proyecto in proyectos" :key="proyecto.titulo">
-        <strong>{{ proyecto.titulo }}</strong><br />
-        <button @click="ir(proyecto.url)">🔗 Ver proyecto</button>
-      </li>
+    <ul class="project-list">
+      <li><strong>Gestor de Proyectos:</strong> Plataforma desarrollada con React en el frontend y .NET en el backend para facilitar la planificación, seguimiento y administración eficiente de proyectos.</li>
+      <li><strong>Bot de Trading Crypto:</strong> Bot desarrollado en Python con Flask en el backend, y React en el frontend para el análisis, compra y venta automática de criptomonedas utilizando la métrica RSI.</li>
     </ul>
   </div>
 </template>
 
 <script setup>
-const proyectos = [
-  { titulo: 'Crypto App', url: 'https://misitio.com/crypto' },
-  { titulo: 'ToDo App', url: 'https://misitio.com/todo' },
-  { titulo: 'Mi Tienda Online', url: 'https://misitio.com/tienda' }
-]
-
-function ir(url) {
-  window.open(url, '_blank')
-}
 </script>
-
-<style scoped>
-ul {
-  list-style: none;
-  padding: 0;
-}
-li {
-  margin: 10px 0;
-}
-button {
-  margin-top: 5px;
-}
-</style>

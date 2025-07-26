@@ -2,42 +2,63 @@
 import { ref, onMounted } from 'vue'
 import Cabecera from './components/Cabecera.vue'
 import SobreMi from './components/SobreMi.vue'
-import Habilidades from './components/Habilidades.vue'
 import Proyectos from './components/Proyectos.vue'
 import Educacion from './components/Educacion.vue'
 import PiePagina from './components/PiePagina.vue'
+import SvgModos from './shared/svg-modos.vue'
+/* import ParticulasIzquierda from './shared/particulasIzquierda.vue'
+import ParticulasDerecha from './shared/particulasDerecha.vue' */
+import ParticulasLluvia from './shared/particulasLluvia.vue'
 import Modal from './components/Modal.vue'
 
 const mainContent = ref(null)
-const handleParallaxScroll = () => {
-  const scrollTop = mainContent.value.scrollTop
-  const section = mainContent.value.querySelector('.parallax-section')
-  const sectionTop = section.offsetTop
-  const sectionHeight = section.clientHeight
+const isMobile = () => window.matchMedia('(max-width: 1024px)').matches
 
-  // Calcula cuánto hemos scrolleado dentro de la sección
-  const relScroll = scrollTop - sectionTop
-  if (relScroll < 0 || relScroll > sectionHeight) {
-    // Si aún no hemos llegado o ya pasamos de la sección, no debería mover nada
-    return
+const handleParallaxScroll = () => {
+  if (isMobile()) {
+    return;
   }
 
-  const sobreMiLayer = section.querySelector('.sobre-mi')
-  const habilidadesLayer = section.querySelector('.habilidades')
+  const section = mainContent.value.querySelector('.full-section')
+  if (!section) {
+    return;
+  }
 
-  // Ajusta las velocidades: SobreMi más lento, Habilidades un poco más rápido
-  const maxMovement = sectionHeight / 2  // por ejemplo limitamos el movimiento
-  const factorSobreMi = 0.3
-  const factorHabilidades = 0.6
+  const scrollTop = mainContent.value.scrollTop
+  const sectionTop = section.offsetTop
+  const sectionHeight = section.clientHeight
+  const relScroll = scrollTop - sectionTop
 
-  sobreMiLayer.style.transform = 
-    `translateY(${Math.min(relScroll * factorSobreMi, maxMovement)}px)`
-  habilidadesLayer.style.transform = 
-    `translateY(${Math.min(relScroll * factorHabilidades, maxMovement)}px)`
+  if (relScroll < 0 || relScroll > sectionHeight) {
+    return;
+  }
+
+  const maxMovement = sectionHeight / 2
+  const factor = 0.3
+
+  section.style.transform = `translateY(${Math.min(relScroll * factor, maxMovement)}px)`
 }
+
 onMounted(() => {
-  mainContent.value.addEventListener('scroll', handleParallaxScroll)
+  const saved = localStorage.getItem('theme')
+  isDark.value = saved
+    ? saved === 'dark'
+    : window.matchMedia('(prefers-color-scheme: dark)').matches
+  applyThemeClass(isDark.value)
+
+  const updateScrollListener = () => {
+    if (mainContent.value) {
+      mainContent.value.removeEventListener('scroll', handleParallaxScroll)
+      if (!isMobile()) {
+        mainContent.value.addEventListener('scroll', handleParallaxScroll)
+      }
+    }
+  }
+
+  updateScrollListener()
+  window.addEventListener('resize', updateScrollListener)
 })
+
 
 const isDark = ref(false)
 
@@ -52,35 +73,20 @@ const toggleDarkMode = () => {
   applyThemeClass(isDark.value)
 }
 
-onMounted(() => {
-  const saved = localStorage.getItem('theme')
-  if (saved) {
-    isDark.value = saved === 'dark'
-  } else {
-    isDark.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-  }
-  applyThemeClass(isDark.value)
-})
-
-onMounted(() => {
-  if (mainContent.value) {
-    mainContent.value.addEventListener('scroll', handleParallaxScroll)
-  }
-})
-
 </script>
 
 <template>
+  <!-- <ParticulasIzquierda />
+  <ParticulasDerecha /> -->
+  <ParticulasLluvia :isDark="isDark"/>
   <div class="app-wrapper">
-    <Cabecera class="header" />
+
+    <Cabecera/>
 
     <main ref="mainContent" class="main-content">
-      <section class="full-section parallax-section">
-        <div class="parallax-layer sobre-mi">
+      <section class="full-section">
+        <div class="sobre-mi">
           <SobreMi />
-        </div>
-        <div class="parallax-layer habilidades">
-          <Habilidades />
         </div>
       </section>
 
@@ -96,8 +102,6 @@ onMounted(() => {
 
     <PiePagina class="footer-text" />
 
-    <button @click="toggleDarkMode" class="btn toggle">
-      <font-awesome-icon icon="adjust" /> Cambiar modo
-    </button>
+    <SvgModos :isDark="isDark" @toggle="toggleDarkMode" />
   </div>
 </template>

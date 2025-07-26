@@ -1,32 +1,58 @@
 <template>
   <header class="header">
-    <img :src="perfil" alt="Nelson Gómez" class="profile-pic" />
+    <img :src="perfil" alt="Foto de perfil de Nelson Gómez" class="profile-pic" />
     <div>
       <h1 class="title">Nelson Gómez</h1>
       <p class="subtitle">Frontend Developer — Valparaíso, Chile</p>
 
-      <div class="buttons">
-        <button class="btn" @click="openModal">
-          <font-awesome-icon :icon="['fas', 'file-alt']" /> CV
+      <div class="buttons buttons-mobile">
+        <button class="btn" @click="openModal" aria-label="Abrir Currículum Vitae">
+          <font-awesome-icon :icon="['fas', 'file-alt']" />
+          <span class="sr-only">Abrir Currículum Vitae</span>
+          <span>CV</span> 
         </button>
-        <a class="btn" href="https://www.linkedin.com/in/nelson-danilo-gomez-gomez-8a6418217" target="_blank">
-          <font-awesome-icon :icon="['fab', 'linkedin']" /> LinkedIn
+
+        <a
+          class="btn"
+          href="https://www.linkedin.com/in/nelson-danilo-gomez-gomez-8a6418217"
+          target="_blank"
+          aria-label="Visitar perfil de LinkedIn de Nelson Gómez"
+        >
+          <font-awesome-icon :icon="['fab', 'linkedin']" />
+          <span>LinkedIn</span>
         </a>
-        <a class="btn" href="https://github.com/NelsonDaniloGomezGomez" target="_blank">
-          <font-awesome-icon :icon="['fab', 'github']" /> GitHub
+
+        <a
+          class="btn"
+          href="https://github.com/NelsonDaniloGomezGomez"
+          target="_blank"
+          aria-label="Visitar perfil de GitHub de Nelson Gómez"
+        >
+          <font-awesome-icon :icon="['fab', 'github']" />
+          <span>GitHub</span>
         </a>
       </div>
     </div>
 
     <Modal :show="showCv" @close="closeModal">
-      <!-- Contenido slot del modal -->
-      <h3>Currículum Vitae</h3>
-      <iframe :src="pdfUrl" width="100%" height="500px" style="border:none;"></iframe>
+      <h3 id="cv-title">Currículum Vitae</h3>
+      <iframe
+        :src="pdfUrl"
+        width="100%"
+        height="500px"
+        style="border:none;"
+        title="Currículum Vitae de Nelson Gómez"
+        aria-labelledby="cv-title"
+      ></iframe>
+
       <div class="modal-btn" style="margin-top: 1rem; display: flex; gap: 1rem; justify-content:center;">
-        <a :href="pdfUrl" download="CurriculumNelsonGomez.pdf" class="btn download-btn">
-          <font-awesome-icon :icon="['fas', 'download']" /> Descargar CV
+        <a :href="pdfUrl" download="CurriculumNelsonGomez.pdf" class="btn download-btn" aria-label="Descargar Currículum Vitae">
+          <font-awesome-icon :icon="['fas', 'download']" />
+          <span>Descargar CV</span>
         </a>
-        <button class="btn close-btn" @click="closeModal">Cerrar</button>
+        <button class="btn close-btn" @click="closeModal" aria-label="Cerrar modal del Currículum Vitae">
+          Cerrar
+        </button>
       </div>
     </Modal>
   </header>

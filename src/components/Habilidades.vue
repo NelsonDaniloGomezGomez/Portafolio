@@ -3,7 +3,12 @@
     <h2>Tecnologías</h2>
     <ul class="skills-list">
       <li v-for="(skill, index) in skills" :key="index" class="skill-tag">
-        <font-awesome-icon :icon="skill.icon" class="skill-icon" />
+        <font-awesome-icon 
+          :icon="skill.icon" 
+          class="skill-icon" 
+          aria-hidden="true" 
+          focusable="false" 
+        />
         <span class="skill-name">{{ skill.name }}</span>
       </li>
     </ul>

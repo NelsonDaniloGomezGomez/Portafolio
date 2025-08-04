@@ -59,6 +59,11 @@ a {
   transition: color var(--transition-speed);
 }
 
+.center{
+  justify-content: center;
+  display: flex;
+}
+
 .buttons button,
 a.btn {
   border-radius: var(--border-radius);
@@ -78,6 +83,26 @@ a.btn:hover {
   border-color: var(--color-primary);
   background-color: var(--color-primary);
   color: white;
+  transform: scale(1.05);
+}
+
+.btn-jugar {
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--color-primary);
+  color: var(--text-light);
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color var(--transition-speed), border-color var(--transition-speed);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.btn-jugar:hover {
+  background-color: var(--color-primary);
   transform: scale(1.05);
 }
 
@@ -229,12 +254,12 @@ section.full-section {
 .skill-tag {
   display: flex;
   align-items: center;
-  background-color: var(--tag-background-light);
+  background-color: var(--tag-background-light) !important;
   color: var(--text-color);
-  border-radius: 9999px;
-  padding: 0.35rem 1rem;
+  border-radius: 9999px !important;
+  padding: 0.35rem 1rem !important;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1rem !important;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
@@ -245,13 +270,47 @@ section.full-section {
 }
 
 .project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0 auto 2rem auto;
+  max-width: 100%;
+  background-color: transparent; /* Sin fondo */
+  border-radius: 0;               /* Sin bordes redondeados */
+  box-shadow: none;              /* Sin sombra */
+  color: var(--subtitle-color);
+  transition: color 0.5s ease;
   list-style: none;
-  padding-left: 0;
   text-align: start;
 }
 
+body.dark .project-list {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
 .project-list li {
-  margin-bottom: 0.7rem;
+  padding: 1rem 1.25rem;
+  background-color: rgba(255, 255, 255, 0.05); /* Muy sutil */
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);  /* Línea tenue */
+  transition: background-color 0.3s ease;
+}
+
+.project-list ul {
+  padding-top: 2rem;
+}
+
+body.dark .project-list li {
+  background-color: var(--tag-background-dark);
+}
+
+.project-name {
+  display: block;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: 0.4rem;
 }
 
 .list-education{
@@ -463,8 +522,8 @@ section p {
   }
 
   .skill-tag {
-    font-size: 0.9rem;
-    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem !important;
+    padding: 0.3rem 0.8rem !important;
   }
 
   .intro-text,
